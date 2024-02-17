@@ -9,6 +9,7 @@ import UIKit
 
 class TriangleView: UIView {
     
+    //MARK: Creating variables
     lazy private var areaLabel: UILabel = {
         let label = UILabel()
         label.text = "Your triangle area is:"
@@ -34,7 +35,6 @@ class TriangleView: UIView {
         label.textAlignment = .center
         return label
     }()
-    
     
     lazy var sideOneLabel: UILabel = {
         let label = UILabel()
@@ -64,7 +64,6 @@ class TriangleView: UIView {
         stackView.distribution = .equalSpacing
         return stackView
     }()
-    
     
     lazy var sideOneTextField: UITextField = {
         let textfield = UITextField()
@@ -96,7 +95,6 @@ class TriangleView: UIView {
         return stackView
     }()
     
-    
     lazy var calculateButton: UIButton = {
         let button = UIButton()
         button.setTitle("Calculate", for: .normal)
@@ -108,12 +106,13 @@ class TriangleView: UIView {
     }()
     
     
+    //MARK: Initializing view
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         createCalculateButton()
         createTriangleTextFields()
-        createLabelFields()
+        createTriangleLabelFields()
         createAreaLabel()
         
         infoLabel.isHidden = true
@@ -121,7 +120,8 @@ class TriangleView: UIView {
     }
     
 
-    private func createAreaLabel() {
+    //MARK: Creating top labels
+    fileprivate func createAreaLabel() {
         addSubview(areaLabel)
         addSubview(areaInt)
         addSubview(infoLabel)
@@ -145,7 +145,10 @@ class TriangleView: UIView {
         
         NSLayoutConstraint.activate(labelConstraints)
     }
-    private func createLabelFields() {
+    
+    
+    //MARK: Creating triangle sides labels
+    fileprivate func createTriangleLabelFields() {
         addSubview(triangleLabelStackView)
         
         let triangleLabelsStackConstraints = [
@@ -157,7 +160,10 @@ class TriangleView: UIView {
         
         NSLayoutConstraint.activate(triangleLabelsStackConstraints)
     }
-    private func createTriangleTextFields() {
+    
+    
+    //MARK: Creating triangle textfields
+    fileprivate func createTriangleTextFields() {
         addSubview(triangleTextFieldStackView)
         
         let textFieldStackConstraints = [
@@ -169,7 +175,10 @@ class TriangleView: UIView {
         
         NSLayoutConstraint.activate(textFieldStackConstraints)
     }
-    private func createCalculateButton() {
+    
+    
+    //MARK: Creating calculate button
+    fileprivate func createCalculateButton() {
         addSubview(calculateButton)
         
         let buttonConstraints = [

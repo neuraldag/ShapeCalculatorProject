@@ -9,36 +9,41 @@ import UIKit
 
 class TriangleController: UIViewController {
     
+    //MARK: Creating variables
     let viewSub = TriangleView()
     let model = FigureAreas()
     
+    
+    //MARK: loadView
     override func loadView() {
         super.loadView()
         view = viewSub
     }
 
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
-        NotificationCenter.default.addObserver(forName: UITextField.keyboardDidShowNotification, object: nil, queue: nil) { nc in
-            UIView.animate(withDuration: 0.3) {
-                self.view.frame.origin.y = -200.0
-            }
-        }
-        
-        NotificationCenter.default.addObserver(forName: UITextField.keyboardWillHideNotification, object: nil, queue: nil) { nc in
-            UIView.animate(withDuration: 1) {
-                self.view.frame.origin.y = 0.0
-            }
-        }
-        
+        keyboardObserver()
         viewSub.calculateButton.addTarget(self, action: #selector(calculateTapped), for: .touchUpInside)
     }
 
     
+    //MARK: Adjust height when keyboard appears
+    func keyboardObserver() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(forName: UITextField.keyboardDidShowNotification, object: nil, queue: nil) { nc in
+            UIView.animate(withDuration: 0.3) { self.view.frame.origin.y = -200.0 }
+        }
+        
+        NotificationCenter.default.addObserver(forName: UITextField.keyboardWillHideNotification, object: nil, queue: nil) { nc in
+            UIView.animate(withDuration: 1) { self.view.frame.origin.y = 0.0 }
+        }
+    }
+    
+    
+    //MARK: Creating variables
     @objc func calculateTapped() {
         guard let side1 = Double(viewSub.sideOneTextField.text!) else {return}
         guard let side2 = Double(viewSub.sideTwoTextField.text!) else {return}
@@ -48,9 +53,7 @@ class TriangleController: UIViewController {
         let equilateral = model.isTriangleEquilateral(side1: side1, side2: side2, side3: side3)
         let isosceles = model.isTriangleIsosceles(side1: side1, side2: side2, side3: side3)
         let scalene = model.isTriangleScalene(side1: side1, side2: side2, side3: side3)
-        
-        print("equilateral = \(equilateral), isosceles = \(isosceles), scalene = \(scalene)")
-        
+ 
         if summ.isNaN || summ == 0.0 {
             viewSub.areaInt.text = "No such triangle"
             viewSub.infoLabel.isHidden = true
@@ -69,6 +72,7 @@ class TriangleController: UIViewController {
     }
     
     
+    //MARK: Creating variables
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }

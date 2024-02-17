@@ -9,33 +9,38 @@ import UIKit
 
 class CircleController: UIViewController {
     
+    //MARK: Creating variables
     let viewSub = CircleView()
     let model = FigureAreas()
     
+    
+    //MARK: loadView
     override func loadView() {
         super.loadView()
         view = viewSub
     }
     
+    
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        keyboardObserver()
+        viewSub.calculateButton.addTarget(self, action: #selector(calculateTapped), for: .touchUpInside)
+    }
+    
+    
+    //MARK: Adjust height when keyboard appears
+    func keyboardObserver() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         NotificationCenter.default.addObserver(forName: UITextField.keyboardDidShowNotification, object: nil, queue: nil) { nc in
-            UIView.animate(withDuration: 0.3) {
-                self.view.frame.origin.y = -200.0
-            }
+            UIView.animate(withDuration: 0.3) { self.view.frame.origin.y = -200.0 }
         }
         
         NotificationCenter.default.addObserver(forName: UITextField.keyboardWillHideNotification, object: nil, queue: nil) { nc in
-            UIView.animate(withDuration: 1) {
-                self.view.frame.origin.y = 0.0
-            }
+            UIView.animate(withDuration: 1) { self.view.frame.origin.y = 0.0 }
         }
-        
-        viewSub.calculateButton.addTarget(self, action: #selector(calculateTapped), for: .touchUpInside)
     }
     
     

@@ -10,6 +10,7 @@ import UIKit
 
 class CircleView: UIView {
     
+    //MARK: Creating variables
     lazy private var areaLabel: UILabel = {
         let label = UILabel()
         label.text = "Your circle area is:"
@@ -28,7 +29,6 @@ class CircleView: UIView {
         return label
     }()
     
-    
     lazy var radiusLabel: UILabel = {
         let label = UILabel()
         label.text = "Radius length:"
@@ -36,8 +36,6 @@ class CircleView: UIView {
         label.textAlignment = .left
         return label
     }()
-    
-    
     lazy var radiusTextField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "in cm..."
@@ -46,7 +44,6 @@ class CircleView: UIView {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
-    
     
     lazy var calculateButton: UIButton = {
         let button = UIButton()
@@ -59,19 +56,21 @@ class CircleView: UIView {
     }()
     
     
+    //MARK: Initializing view
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        createAreaLabel()
         createCalculateButton()
         createCircleTextField()
         createRadiusLabel()
-        createAreaLabel()
         
         backgroundColor = .white
     }
     
 
-    private func createAreaLabel() {
+    //MARK: Creating top labels
+    fileprivate func createAreaLabel() {
         addSubview(areaLabel)
         addSubview(areaInt)
         
@@ -89,7 +88,10 @@ class CircleView: UIView {
         
         NSLayoutConstraint.activate(labelConstraints)
     }
-    private func createRadiusLabel() {
+    
+    
+    //MARK: Creating radius label
+    fileprivate func createRadiusLabel() {
         addSubview(radiusLabel)
         
         let triangleLabelsStackConstraints = [
@@ -101,7 +103,10 @@ class CircleView: UIView {
         
         NSLayoutConstraint.activate(triangleLabelsStackConstraints)
     }
-    private func createCircleTextField() {
+    
+    
+    //MARK: Creating radius textfield
+    fileprivate func createCircleTextField() {
         addSubview(radiusTextField)
         
         let textFieldStackConstraints = [
@@ -113,7 +118,10 @@ class CircleView: UIView {
         
         NSLayoutConstraint.activate(textFieldStackConstraints)
     }
-    private func createCalculateButton() {
+    
+    
+    //MARK: Creating calculate button
+    fileprivate func createCalculateButton() {
         addSubview(calculateButton)
         
         let buttonConstraints = [

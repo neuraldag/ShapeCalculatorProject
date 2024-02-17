@@ -25,9 +25,8 @@ class FigureAreas {
                 let area = Double(numberOfSides) * apothem * sideLengths[0] / 2.0
                 return area
             }
-        } else {
-            return 0
-        }
+        } else { return 0 }
+        
         return 0
     }
     

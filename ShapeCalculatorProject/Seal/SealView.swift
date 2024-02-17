@@ -9,6 +9,7 @@ import UIKit
 
 class SealView: UIView {
     
+    //MARK: Creating variables
     lazy private var areaLabel: UILabel = {
         let label = UILabel()
         label.text = "Your figure area is:"
@@ -26,7 +27,6 @@ class SealView: UIView {
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
-
     
     lazy var sidesSlider: UISlider = {
         let slider = UISlider()
@@ -36,7 +36,6 @@ class SealView: UIView {
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
-    
     
     lazy var sidesCountTextField: UITextField = {
         let textfield = UITextField()
@@ -70,7 +69,6 @@ class SealView: UIView {
         return label
     }()
     
-    
     lazy var calculateButton: UIButton = {
         let button = UIButton()
         button.setTitle("Calculate", for: .normal)
@@ -82,34 +80,43 @@ class SealView: UIView {
     }()
     
     
+    //MARK: Initializing view
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        createAreaLabel()
         createCalculateButton()
         createSidesSlider()
-        createTextFields()
-        createLabels()
-        createAreaLabel()
+        createSideTextFields()
+        createSideLabels()
         
         backgroundColor = .white
     }
     
     
-    private func createCalculateButton() {
-        addSubview(calculateButton)
+    //MARK: Creating top labels
+    fileprivate func createAreaLabel() {
+        addSubview(areaLabel)
+        addSubview(areaInt)
         
-        let buttonConstraints = [
-            calculateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -75),
-            calculateButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            calculateButton.heightAnchor.constraint(equalToConstant: 50),
-            calculateButton.widthAnchor.constraint(equalToConstant: 200)
+        let labelConstraints = [
+            areaLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            areaLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            areaLabel.heightAnchor.constraint(equalToConstant: 50),
+            areaLabel.widthAnchor.constraint(equalToConstant: 200),
+            
+            areaInt.centerXAnchor.constraint(equalTo: centerXAnchor),
+            areaInt.topAnchor.constraint(equalTo: areaLabel.bottomAnchor, constant: 0),
+            areaInt.heightAnchor.constraint(equalToConstant: 70),
+            areaInt.widthAnchor.constraint(equalToConstant: 300)
         ]
         
-        NSLayoutConstraint.activate(buttonConstraints)
+        NSLayoutConstraint.activate(labelConstraints)
     }
+
     
-    
-    private func createSidesSlider() {
+    //MARK: Creating sides slider
+    fileprivate func createSidesSlider() {
         addSubview(sidesSlider)
         
         let sliderConstraints = [
@@ -123,28 +130,8 @@ class SealView: UIView {
     }
     
     
-    private func createTextFields() {
-        addSubview(sidesCountTextField)
-        addSubview(sidesLengthTextField)
-        
-        let textFieldConstraints = [
-            sidesLengthTextField.trailingAnchor.constraint(equalTo: sidesSlider.trailingAnchor),
-            sidesLengthTextField.topAnchor.constraint(equalTo: sidesSlider.bottomAnchor, constant: 42),
-            sidesLengthTextField.heightAnchor.constraint(equalToConstant: 34),
-            sidesLengthTextField.widthAnchor.constraint(equalToConstant: 150),
-            
-            sidesCountTextField.trailingAnchor.constraint(equalTo: sidesSlider.trailingAnchor),
-            sidesCountTextField.bottomAnchor.constraint(equalTo: calculateButton.topAnchor, constant: -40),
-            sidesCountTextField.heightAnchor.constraint(equalToConstant: 34),
-            sidesCountTextField.widthAnchor.constraint(equalToConstant: 150)
-        ]
-        
-        NSLayoutConstraint.activate(textFieldConstraints)
-    }
-    
-    
-
-    private func createLabels() {
+    //MARK: Creating sides labels
+    fileprivate func createSideLabels() {
         addSubview(sidesCountLabel)
         addSubview(sidesLenghtLabel)
         
@@ -164,24 +151,41 @@ class SealView: UIView {
     }
     
     
-    private func createAreaLabel() {
-        addSubview(areaLabel)
-        addSubview(areaInt)
+    //MARK: Creating sides labels
+    fileprivate func createSideTextFields() {
+        addSubview(sidesCountTextField)
+        addSubview(sidesLengthTextField)
         
-        let labelConstraints = [
-            areaLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            areaLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
-            areaLabel.heightAnchor.constraint(equalToConstant: 50),
-            areaLabel.widthAnchor.constraint(equalToConstant: 200),
+        let textFieldConstraints = [
+            sidesLengthTextField.trailingAnchor.constraint(equalTo: sidesSlider.trailingAnchor),
+            sidesLengthTextField.topAnchor.constraint(equalTo: sidesSlider.bottomAnchor, constant: 42),
+            sidesLengthTextField.heightAnchor.constraint(equalToConstant: 34),
+            sidesLengthTextField.widthAnchor.constraint(equalToConstant: 150),
             
-            areaInt.centerXAnchor.constraint(equalTo: centerXAnchor),
-            areaInt.topAnchor.constraint(equalTo: areaLabel.bottomAnchor, constant: 0),
-            areaInt.heightAnchor.constraint(equalToConstant: 70),
-            areaInt.widthAnchor.constraint(equalToConstant: 300)
+            sidesCountTextField.trailingAnchor.constraint(equalTo: sidesSlider.trailingAnchor),
+            sidesCountTextField.bottomAnchor.constraint(equalTo: calculateButton.topAnchor, constant: -40),
+            sidesCountTextField.heightAnchor.constraint(equalToConstant: 34),
+            sidesCountTextField.widthAnchor.constraint(equalToConstant: 150)
         ]
         
-        NSLayoutConstraint.activate(labelConstraints)
+        NSLayoutConstraint.activate(textFieldConstraints)
     }
+    
+    
+    //MARK: Creating calculate button
+    fileprivate func createCalculateButton() {
+        addSubview(calculateButton)
+        
+        let buttonConstraints = [
+            calculateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -75),
+            calculateButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            calculateButton.heightAnchor.constraint(equalToConstant: 50),
+            calculateButton.widthAnchor.constraint(equalToConstant: 200)
+        ]
+        
+        NSLayoutConstraint.activate(buttonConstraints)
+    }
+    
     
     
     required init?(coder: NSCoder) {
